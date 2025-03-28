@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<section>
+    <h3>Summary</h3>
+    <div class="summary">
+        <p>Total Assets: {{ total_assets }}</p>
+        <p>Total Borrowed: {{ total_borrowed }}</p>
+        <p>Available Assets: {{ available_assets }}</p>
+    </div>
+</section>
+<section>
+    <h3>Assets Overview</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Borrower</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asset in assets %}
+            <tr>
+                <td>{{ asset.id }}</td>
+                <td>{{ asset.name }}</td>
+                <td>{{ 'Borrowed' if asset.borrower else 'Available' }}</td>
+                <td>{{ asset.borrower.name if asset.borrower else 'None' }}</td>
+                <td>
+                    {% if asset.borrower %}
+                    <form action="/return/{{ asset.id }}" method="post">
+                        <button type="submit">Mark as Returned</button>
+                    </form>
+                    {% else %}
+                    <form action="/borrow/{{ asset.id }}" method="post">
+                        <button type="submit">Borrow</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

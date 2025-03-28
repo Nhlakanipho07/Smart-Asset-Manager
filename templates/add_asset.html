@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add New Asset</h2>
+<form action="/computer" method="post">
+    <label for="hard_drive_type">Hard Drive Type:</label>
+    <input type="text" id="hard_drive_type" name="hard_drive_type" required><br>
+
+    <label for="processor">Processor:</label>
+    <input type="text" id="processor" name="processor" required><br>
+
+    <label for="ram_amount">RAM Amount (GB):</label>
+    <input type="number" id="ram_amount" name="ram_amount" required><br>
+
+    <label for="maximum_ram">Maximum RAM (GB):</label>
+    <input type="number" id="maximum_ram" name="maximum_ram" required><br>
+
+    <label for="hard_drive_space">Hard Drive Space (GB):</label>
+    <input type="number" id="hard_drive_space" name="hard_drive_space" required><br>
+
+    <label for="form_factor">Form Factor:</label>
+    <input type="text" id="form_factor" name="form_factor" required><br>
+
+    <button type="submit">Add Computer</button>
+</form>
+{% endblock %}

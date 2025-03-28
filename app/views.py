@@ -1,10 +1,20 @@
 from app.models import app, db, Computer, HardDriveType
-from flask import request, jsonify
+from flask import request, jsonify, render_template, redirect
 
 
 @app.route("/")
-def index():
-    return "<h1>Computer Application Is Running</h1>"
+def dashboard():
+    assets = Computer.query.all()
+    total_assets = len(assets)
+    total_borrowed = sum(1 for asset in assets if asset.borrower)
+    available_assets = total_assets - total_borrowed
+    return render_template(
+        "dashboard.html",
+        assets=assets,
+        total_assets=total_assets,
+        total_borrowed=total_borrowed,
+        available_assets=available_assets,
+    )
 
 
 @app.route("/computer/<int:computer_id>", methods=["GET"])
@@ -53,20 +63,30 @@ def get_computers():
     )
 
 
-@app.route("/computer", methods=["POST"])
+@app.route("/computer", methods=["GET", "POST"])
 def add_computer():
-    data = request.get_json()
-    new_computer = Computer(
-        hard_drive_type=HardDriveType[data["hard_drive_type"]],
-        processor=data["processor"],
-        ram_amount=data["ram_amount"],
-        maximum_ram=data["maximum_ram"],
-        hard_drive_space=data["hard_drive_space"],
-        form_factor=data["form_factor"],
-    )
-    db.session.add(new_computer)
-    db.session.commit()
-    return jsonify({"message": "Computer added successfully"}), 201
+    if request.method == "POST":
+        hard_drive_type = request.form["hard_drive_type"]
+        processor = request.form["processor"]
+        ram_amount = int(request.form["ram_amount"])
+        maximum_ram = int(request.form["maximum_ram"])
+        hard_drive_space = int(request.form["hard_drive_space"])
+        form_factor = request.form["form_factor"]
+
+        new_computer = Computer(
+            hard_drive_type=hard_drive_type,
+            processor=processor,
+            ram_amount=ram_amount,
+            maximum_ram=maximum_ram,
+            hard_drive_space=hard_drive_space,
+            form_factor=form_factor,
+        )
+
+        db.session.add(new_computer)
+        db.session.commit()
+        redirect("/")
+        return jsonify({"message": "Computer added successfully"}), 201
+    return render_template("add_asset.html")
 
 
 @app.route("/computer/<int:computer_id>", methods=["PUT"])

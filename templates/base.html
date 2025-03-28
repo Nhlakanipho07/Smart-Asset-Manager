@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Smart Asset Manager</title>
+        <link rel="icon" href="{{ url_for('static', filename='SAM logo.png') }}" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='SAM logo.png') }}" alt="Smart Asset Manager Logo"">
+        <h1>Smart Asset Manager</h1>
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/add_asset">Add Asset</a>
+            <a href="/add_borrower">Add Borrower</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>© Smart Asset Manager</p>
+    </footer>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>
