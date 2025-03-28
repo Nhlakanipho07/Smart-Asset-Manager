@@ -1,0 +1,9 @@
+env
+build/
+flask_computer_api.egg-info/
+__pycache__/
+.vscode/
+get-pip.py
+query_db.py
+instance/
+co.py
