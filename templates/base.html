@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Smart Asset Manager</title>
-        <link rel="icon" href="{{ url_for('static', filename='SAM logo.png') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='SAM logo.png') }}" 
+        type="image/x-icon"> 
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     </head>
     
@@ -14,8 +15,11 @@
         <h1>Smart Asset Manager</h1>
         <nav>
             <a href="/">Dashboard</a>
-            <a href="/add_asset">Add Asset</a>
-            <a href="/add_borrower">Add Borrower</a>
+            <a href="/computer">Add Computer</a>
+            <a href="/computer/<int:computer_id>">Get Computer</a>
+            <a href="/computers">List Computers</a>
+            <a href="/computer/<int:computer_id>">Edit Computer</a>
+            <a href="/computer/<int:computer_id>">Delete Computer</a>
         </nav>
     </header>
     <main>
